@@ -87,10 +87,15 @@ namespace WeatherWizard.ViewModels
                     await App.Current.MainPage.DisplayAlert("New Account", "User Registered successfully", "OK");
                 await this._navigation.PopAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                await App.Current.MainPage.DisplayAlert("Alert", ex.Message, "OK");
-                throw;
+                await App.Current.MainPage.DisplayAlert("Alert", "Invalid Credentials", "OK");
+
+                Email = string.Empty;
+
+                Password = string.Empty;
+
+                return;
             }
         }
     }

@@ -82,7 +82,6 @@
                 Orientation="Horizontal" 
                 Margin="100,5" 
                 Spacing="30">
-
                 <Label
                     FontSize="22"
                     HorizontalOptions="CenterAndExpand"

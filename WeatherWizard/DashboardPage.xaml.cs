@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Plugin.Connectivity;
 using WeatherWizard.Helpers;
 
 namespace WeatherWizard
@@ -22,15 +18,29 @@ namespace WeatherWizard
             GetProfileInfo();
         }
 
+
         public async void OnGetWeatherButtonClicked(object sender, EventArgs e)
         {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                await App.Current.MainPage.DisplayAlert("Warning", "No Internet Connectivity", "Close");
+
+                return;
+            }
+
             if (!string.IsNullOrWhiteSpace(_cityEntry.Text))
             {
-                WeatherData weatherData = await
-                    _restService.
-                    GetWeatherData(GenerateRequestURL(Constants.OpenWeatherMapEndpoint));
+                WeatherData weatherData = await _restService.GetWeatherData(GenerateRequestURL(Constants.OpenWeatherMapEndpoint));
 
                 BindingContext = weatherData;
+
+                _cityEntry.Text = "";
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Warning", "City Name field is empty", "Close");
+
+                return;
             }
         }
 

@@ -79,10 +79,15 @@ namespace WeatherWizard.ViewModels
                 Preferences.Set("FreshFirebaseToken", serializedContent);
                 await this._navigation.PushAsync(new DashboardPage());
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                await App.Current.MainPage.DisplayAlert("Alert", ex.Message, "OK");
-                throw;
+                await App.Current.MainPage.DisplayAlert("Alert", "Invalid Credentials", "OK");
+
+                UserName = string.Empty;
+
+                UserPassword = string.Empty;
+
+                return;
             }
 
 

@@ -30,10 +30,9 @@ namespace WeatherWizard.Helpers
                     weatherData = JsonConvert.DeserializeObject<WeatherData>(content);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                await App.Current.MainPage.DisplayAlert("Request Error", "No forecast information found", "Close");
             }
             return weatherData;
         }
